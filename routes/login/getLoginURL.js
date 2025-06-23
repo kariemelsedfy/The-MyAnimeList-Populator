@@ -3,6 +3,9 @@ const PKCE = require('./getPKCEhelper');
 const loginURLBuilder = require('./buildURL');
 
 const { codeVerifier, codeChallenge } = PKCE.generatePkcePair();
+const redirectURI = "http://localhost:3000/oauth"
+
+
 
 const loginURL = loginURLBuilder('https://myanimelist.net/v1/oauth2/authorize', {
     client_id: process.env.CLIENT_ID,
@@ -10,6 +13,7 @@ const loginURL = loginURLBuilder('https://myanimelist.net/v1/oauth2/authorize', 
     code_challenge: codeChallenge,
     code_challenge_method: 'plain',
     state: codeVerifier,
+    //redirect_uri: redirectURI
 });
 
 module.exports.loginURL = loginURL
