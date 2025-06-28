@@ -1,15 +1,16 @@
 const express = require('express');
-
+const cors = require('cors');
 const app = express();
 const login = require('./routes/login');
-const oauth = require('./routes/oauth')
+
+app.use(cors());
+
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.use('/login', login);
-app.use('/oauth', oauth)
+app.use('/api/login', login);
 
 
 app.listen(3000, () => {

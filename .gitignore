@@ -1,2 +1,31 @@
 node_modules/
+.env# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Angular build output
+dist/
+out-tsc/
+.angular/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment files
 .env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# Misc
+coverage/
+tmp/
+temp/
+.cache/
