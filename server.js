@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const login = require('./routes/login');
+const getToken = require('./routes/getToken')
 
+app.use(express.json())
 app.use(cors());
 
 
@@ -11,6 +13,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/login', login);
+app.use('/api/getToken', getToken)
 
 
 app.listen(3000, () => {
