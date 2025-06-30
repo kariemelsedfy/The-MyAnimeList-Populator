@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
   loginUrl: string = '';
+  accessToken: string | null = null;
 
   constructor(private http: HttpClient) {}
 

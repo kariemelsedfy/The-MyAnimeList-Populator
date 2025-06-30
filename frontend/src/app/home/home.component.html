@@ -3,3 +3,8 @@
     <button [disabled]="!loginUrl">Login</button>
   </a>
 </div>
+
+
+<div *ngIf="accessToken">
+  <p><strong>Access Token:</strong> {{ accessToken }}</p>
+</div>
