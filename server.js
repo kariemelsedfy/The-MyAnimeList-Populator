@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const login = require('./routes/login');
 const getToken = require('./routes/getToken')
+const buildSuggestedAnimeList = require('./routes/buildSuggestedAnimeList')
 
 app.use(express.json())
 app.use(cors());
@@ -13,7 +14,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/login', login);
-app.use('/api/getToken', getToken)
+app.use('/api/getToken', getToken);
+app.use('/api/buildSuggestedAnimeList', buildSuggestedAnimeList);
 
 
 app.listen(3000, () => {

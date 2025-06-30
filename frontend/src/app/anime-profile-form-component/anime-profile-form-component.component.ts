@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { JsonPipe } from '@angular/common';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-anime-profile',
   standalone: true,
@@ -73,7 +73,7 @@ export class AnimeProfileComponent {
   animeForm: FormGroup;
   submitted = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.animeForm = this.fb.group({
       startPeriod: [''],
       startAge: [''],
@@ -87,6 +87,14 @@ export class AnimeProfileComponent {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.animeForm.value);
+    this.http.post("http://localhost:3000/api/buildSuggestedAnimeList", this.animeForm.value)
+      .subscribe({
+        next: (response) => {
+          console.log('Form submitted!', response);
+        },
+        error: (err) => {
+          console.error('Submission failed', err);
+        }
+      });
   }
 }
