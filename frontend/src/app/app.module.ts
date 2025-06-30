@@ -6,6 +6,7 @@ import { AppComponent }          from './app.component';
 import { OauthCallbackComponent } from './oauth-callback/oauth-callback.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AnimeProfileComponent } from './anime-profile-form-component/anime-profile-form-component.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AppComponent,
     OauthCallbackComponent,
-    HomeComponent
+    HomeComponent, 
+    AnimeProfileComponent
   ],
   bootstrap: [AppComponent]
 })
