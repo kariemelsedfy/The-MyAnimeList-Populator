@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
-import { JsonPipe } from '@angular/common';
+import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { NgIf, NgFor, JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-anime-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, JsonPipe],
+  imports: [ReactiveFormsModule, NgIf, NgFor, JsonPipe],
   template: `
     <div class="p-4 max-w-xl mx-auto">
       <h2 class="text-xl font-bold mb-4">Anime Watch History</h2>
@@ -41,13 +41,13 @@ import { HttpClient } from '@angular/common/http';
         </div>
 
         <div>
-          <label class="block font-semibold">What genres do you enjoy most?</label>
-          <input type="text" formControlName="likedGenres" class="w-full p-2 border rounded" placeholder="e.g., action, romance, slice of life..." />
-        </div>
-
-        <div>
-          <label class="block font-semibold">Are there any genres you dislike or avoid?</label>
-          <input type="text" formControlName="dislikedGenres" class="w-full p-2 border rounded" placeholder="e.g., horror, mecha..." />
+          <label class="block font-semibold mb-2">What genres do you enjoy most?</label>
+          <div class="flex flex-wrap gap-2">
+            <label *ngFor="let genre of genres; let i = index" class="flex items-center space-x-2">
+              <input type="checkbox" [formControl]="likedGenres.controls[i]" />
+              <span>{{ genre }}</span>
+            </label>
+          </div>
         </div>
 
         <div>
@@ -72,6 +72,14 @@ import { HttpClient } from '@angular/common/http';
 export class AnimeProfileComponent {
   animeForm: FormGroup;
   submitted = false;
+  genres = [
+    'Action', 'Adventure', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Mecha',
+    'Mystery', 'Romance', 'Sci-Fi', 'Slice of Life', 'Sports', 'Supernatural', 'Thriller'
+  ];
+
+  get likedGenres(): FormArray<FormControl<boolean>> {
+    return this.animeForm.get('likedGenres') as FormArray<FormControl<boolean>>;
+  }
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.animeForm = this.fb.group({
@@ -79,15 +87,21 @@ export class AnimeProfileComponent {
       startAge: [''],
       stillWatching: [''],
       animeCount: [''],
-      likedGenres: [''],
-      dislikedGenres: [''],
+      likedGenres: this.fb.array(this.genres.map(() => this.fb.control(false))),
       seriesLengthPreference: ['']
     });
   }
 
   onSubmit() {
     this.submitted = true;
-    this.http.post("http://localhost:3000/api/buildSuggestedAnimeList", this.animeForm.value)
+    // Convert likedGenres boolean array to genre names
+    const selectedGenres = this.likedGenres.value
+      .map((checked: boolean, i: number) => checked ? this.genres[i] : null)
+      .filter((v: string | null) => v !== null);
+
+    const formValue = { ...this.animeForm.value, likedGenres: selectedGenres, MAL_ACCESS_TOKEN: localStorage.getItem('access_token') };
+
+    this.http.post("http://localhost:3000/api/buildSuggestedAnimeList", formValue)
       .subscribe({
         next: (response) => {
           console.log('Form submitted!', response);

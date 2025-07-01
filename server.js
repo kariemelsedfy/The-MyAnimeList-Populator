@@ -4,7 +4,8 @@ const app = express();
 const login = require('./routes/login');
 const getToken = require('./routes/getToken')
 const buildSuggestedAnimeList = require('./routes/buildSuggestedAnimeList')
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.json())
 app.use(express.json())
 app.use(cors());
 
