@@ -5,6 +5,9 @@ const router = express.Router();
 require('dotenv').config();
 const axios = require('axios');
 const MAL_BASE_URL = 'https://api.myanimelist.net/v2';
+const getMostPopular = require('./builtSuggestedAnimeList/getMostPopular');
+const getSeasonalRange = require('./builtSuggestedAnimeList/getSeasonalRange');
+const parsePeriod = require('./builtSuggestedAnimeList/parsePeriod');
 
 router.post('/', async (req, res) => {
     try {
@@ -37,86 +40,14 @@ router.post('/', async (req, res) => {
             id: anime.id,
             main_picture: anime.main_picture
         }));
-        console.log(result.length)
+
+        console.log(result);
+
         res.json({ anime: result });
     } catch (err) {
         console.error('Error /api/anime-profile:', err.response?.data || err.message);
         res.status(500).json({ error: 'Failed to fetch profile suggestions' });
     }
 });
-
-// Authorization header helper
-function getAuthHeaders(token) {
-    return { Authorization: `Bearer ${token}` };
-}
-
-// 1. Most popular anime (overall ranking)
-async function getMostPopular(token, limit = 10) {
-    const url = `${MAL_BASE_URL}/anime/ranking`;
-    const response = await axios.get(url, {
-        headers: getAuthHeaders(token),
-        params: { ranking_type: 'bypopularity', limit, fields: 'id,title,main_picture' }
-    });
-    return response.data.data.map(item => ({
-        id: item.node.id,
-        main_picture: item.node.main_picture
-    }));
-}
-
-// 2. Seasonal anime for a given year and season (top 5)
-async function getSeasonal(token, year, season, top = 5) {
-    const url = `${MAL_BASE_URL}/anime/season/${year}/${season}`;
-    const response = await axios.get(url, {
-        headers: getAuthHeaders(token),
-        params: { fields: 'id,title,main_picture' }
-    });
-    return response.data.data.slice(0, top).map(item => ({
-        id: item.node.id,
-        main_picture: item.node.main_picture
-    }));
-}
-
-// 3. get top seasonal anime from startYear up to current year
-async function getSeasonalRange(token, fromYear) {
-    const currentYear = new Date().getFullYear();
-    const seasons = ['winter', 'spring', 'summer', 'fall'];
-    const allSeasonal = [];
-    for (let year = fromYear; year <= currentYear; year++) {
-        for (const season of seasons) {
-            try {
-                const list = await getSeasonal(token, year, season, 5);
-                allSeasonal.push({ year, season, suggestions: list });
-            } catch (err) {
-                console.warn(`Skipping ${year}-${season}:`, err.message);
-            }
-        }
-    }
-    return allSeasonal;
-}
-
-// Parse period strings or year
-function parsePeriod(period) {
-    const p = period.toString().trim();
-    // Single year (e.g., '2018')
-    if (/^\d{4}$/.test(p)) {
-        const y = parseInt(p, 10);
-        return { fromYear: y, toYear: y };
-    }
-    const lower = p.toLowerCase();
-    // Decade (e.g., '2010s')
-    const dec = lower.match(/(\d{4})s/);
-    if (dec) {
-        const y = parseInt(dec[1], 10);
-        return { fromYear: y, toYear: y + 9 };
-    }
-    // Recent (last 5 years)
-    if (lower.includes('recent') || lower.includes('lately')) {
-        const now = new Date().getFullYear();
-        return { fromYear: now - 5, toYear: now };
-    }
-    // Fallback: 2000 to current year
-    const now = new Date().getFullYear();
-    return { fromYear: 2000, toYear: now };
-}
 
 module.exports = router;
