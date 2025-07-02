@@ -8,7 +8,7 @@ const MAL_BASE_URL = 'https://api.myanimelist.net/v2';
 const getMostPopular = require('./builtSuggestedAnimeList/getMostPopular');
 const getSeasonalRange = require('./builtSuggestedAnimeList/getSeasonalRange');
 const parsePeriod = require('./builtSuggestedAnimeList/parsePeriod');
-
+const getUserID = require('./builtSuggestedAnimeList/getUserID')
 router.post('/', async (req, res) => {
     try {
         const startPeriod = req.body.startPeriod;
@@ -41,8 +41,9 @@ router.post('/', async (req, res) => {
             main_picture: anime.main_picture
         }));
 
-        console.log(result);
+        const userID = await getUserID(token)
 
+        
         res.json({ anime: result });
     } catch (err) {
         console.error('Error /api/anime-profile:', err.response?.data || err.message);
