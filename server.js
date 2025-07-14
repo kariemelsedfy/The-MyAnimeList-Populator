@@ -2,8 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const login = require('./routes/login');
-const getToken = require('./routes/getToken')
-const buildSuggestedAnimeList = require('./routes/buildSuggestedAnimeList')
+const getToken = require('./routes/getToken');
+const buildSuggestedAnimeList = require('./routes/buildSuggestedAnimeList');
+const getSuggestedAnimes = require('./routes/getSuggestedAnimes');
+
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 app.use(express.json())
@@ -17,7 +20,7 @@ app.get('/', (req, res) => {
 app.use('/api/login', login);
 app.use('/api/getToken', getToken);
 app.use('/api/buildSuggestedAnimeList', buildSuggestedAnimeList);
-
+app.use('/api/getSuggestedAnimes', getSuggestedAnimes);
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');

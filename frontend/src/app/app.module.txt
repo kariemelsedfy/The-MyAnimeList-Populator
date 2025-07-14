@@ -1,0 +1,36 @@
+// src/app/app.module.ts
+import { NgModule }           from '@angular/core';
+import { BrowserModule }      from '@angular/platform-browser';
+import { CommonModule }       from '@angular/common';
+import { HttpClientModule }   from '@angular/common/http';
+import { IonicModule }        from '@ionic/angular';
+
+import { AppRoutingModule }   from './app.routing.module';
+
+// Standalone components get imported, not declared:
+import { AppComponent }               from './app.component';
+import { OauthCallbackComponent }     from './oauth-callback/oauth-callback.component';
+import { HomeComponent }              from './home/home.component';
+import { AnimeProfileComponent }      from './anime-profile-form-component/anime-profile-form-component.component';
+import { TinderUIComponent }          from './tinder-ui/tinder-ui.component';
+import { SwipeComponent }             from './swipe/swipe.component';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    CommonModule,
+    HttpClientModule,
+    IonicModule.forRoot(),   // register Ionic once at root
+    AppRoutingModule,
+
+    // import your standalone components here:
+    AppComponent,
+    OauthCallbackComponent,
+    HomeComponent,
+    AnimeProfileComponent,
+    TinderUIComponent,
+    SwipeComponent
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}

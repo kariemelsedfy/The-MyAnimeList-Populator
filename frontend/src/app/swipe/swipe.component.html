@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Tinder
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <tinder-ui [cards]="cards"></tinder-ui>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="full" (click)="loadTinderCards()">Load Tinder Cards!</ion-button>
+  </ion-toolbar>
+</ion-footer>

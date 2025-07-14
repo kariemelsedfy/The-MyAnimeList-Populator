@@ -1,0 +1,20 @@
+// src/app/swipe/swipe.module.ts
+import { NgModule }            from '@angular/core';
+import { RouterModule }        from '@angular/router';
+
+import { SwipeComponent }      from './swipe.component';
+import { TinderUIComponent }   from '../tinder-ui/tinder-ui.component';
+
+@NgModule({
+  imports: [
+    // import your standalone components
+    SwipeComponent,
+    TinderUIComponent,
+
+    // wire up the route to SwipeComponent
+    RouterModule.forChild([
+      { path: '', component: SwipeComponent }
+    ])
+  ]
+})
+export class SwipeModule {}

@@ -7,7 +7,9 @@ import { OauthCallbackComponent } from './oauth-callback/oauth-callback.componen
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AnimeProfileComponent } from './anime-profile-form-component/anime-profile-form-component.component';
-
+import { IonicModule } from '@ionic/angular';
+import { SwipeComponent } from './swipe/swipe.component';
+import { TinderUIComponent } from './tinder-ui/tinder-ui.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -16,7 +18,10 @@ import { AnimeProfileComponent } from './anime-profile-form-component/anime-prof
     AppComponent,
     OauthCallbackComponent,
     HomeComponent, 
-    AnimeProfileComponent
+    AnimeProfileComponent, 
+    SwipeComponent,
+    TinderUIComponent,
+    IonicModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
