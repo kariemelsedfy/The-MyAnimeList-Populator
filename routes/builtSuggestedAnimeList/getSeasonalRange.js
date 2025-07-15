@@ -12,7 +12,8 @@ async function getSeasonal(token, year, season, top = 5) {
     });
     return response.data.data.slice(0, top).map(item => ({
         id: item.node.id,
-        main_picture: item.node.main_picture
+        main_picture: item.node.main_picture, 
+        title: item.node.title
     }));
 }
 

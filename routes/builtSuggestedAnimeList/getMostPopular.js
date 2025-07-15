@@ -11,7 +11,8 @@ async function getMostPopular(token, limit = 10) {
     });
     return response.data.data.map(item => ({
         id: item.node.id,
-        main_picture: item.node.main_picture
+        main_picture: item.node.main_picture,
+        title: item.node.title
     }));
 }
 

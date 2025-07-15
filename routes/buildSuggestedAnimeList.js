@@ -25,7 +25,6 @@ router.post('/', async (req, res) => {
 
         // Combine all anime into one array
         let allAnime = [...popularOverall, ...seasonalAnime];
-
         // Optionally, fetch main_picture for popularOverall and seasonal if not already included
         // (If you want main_picture, update getMostPopular and getSeasonal to request it from the API)
 
@@ -40,13 +39,14 @@ router.post('/', async (req, res) => {
         // Only return id and main_picture
         const result = uniqueAnime.map(anime => ({
             id: anime.id,
-            main_picture: anime.main_picture
+            main_picture: anime.main_picture,
+            title: anime.title
         }));
 
         const userID = await getUserID(token)
 
         await Promise.all(
-            result.map(anime => addRow(userID, anime.id, anime.main_picture))
+            result.map(anime => addRow(userID, anime.id, anime.main_picture, anime.title))
         );  
 
         res.json({ anime: result });

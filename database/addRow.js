@@ -1,7 +1,7 @@
 const pool = require('./initalize');
 
 
-async function addRow(userID, animeID, animeImage) {
+async function addRow(userID, animeID, animeImage, animeTitle) {
     // 0. Insert user if not exists (adjust username as needed)
     await pool.query(
         `INSERT INTO users (id, username) VALUES ($1, $2)
@@ -11,9 +11,9 @@ async function addRow(userID, animeID, animeImage) {
 
     // 1. Insert anime if not exists
     await pool.query(
-        `INSERT INTO anime (id, main_picture) VALUES ($1, $2)
+        `INSERT INTO anime (id, main_picture, title) VALUES ($1, $2, $3)
          ON CONFLICT (id) DO NOTHING;`,
-        [animeID, animeImage]
+        [animeID, animeImage, animeTitle]
     );
 
     // 2. Insert into user_anime if not exists
