@@ -31,8 +31,8 @@ export class SwipeComponent {
           : item.main_picture;
 
         return {
-          id:          item.id,
-          img:         pic.medium,                 // the image URL
+          id: item.id,
+          img: pic.large || pic.medium || '', // Fallback if large is missing
         };
       });
       console.log(this.cards);
