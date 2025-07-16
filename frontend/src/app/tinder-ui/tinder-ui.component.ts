@@ -19,6 +19,7 @@ export class TinderUIComponent implements AfterViewInit {
   @Input('cards') cards!: Array<{
     id: number;
     img: string;
+    title: string;
   }>;
 
   @ViewChildren('tinderCard') tinderCards!: QueryList<ElementRef>;
@@ -47,14 +48,26 @@ export class TinderUIComponent implements AfterViewInit {
       return;
     }
 
+    const card = this.cards[0];
+
     const cardEl = this.tinderCardsArray[0].nativeElement as HTMLElement;
 
     if (heart) {
       cardEl.style.transform = `translate(${this.moveOutWidth}px, -100px) rotate(-30deg)`;
       this.toggleChoiceIndicator('', 'visible');
+
+      //Swiped right logic here
+      console.log("user swiped right");
+      console.log(card)
+
     } else {
       cardEl.style.transform = `translate(-${this.moveOutWidth}px, -100px) rotate(30deg)`;
       this.toggleChoiceIndicator('visible', '');
+
+
+      //Swiped left logic here
+      console.log("user swiped left");
+      console.log(card)
     }
 
     this.shiftRequired = true;
