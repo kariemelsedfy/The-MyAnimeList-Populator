@@ -5,7 +5,7 @@ const login = require('./routes/login');
 const getToken = require('./routes/getToken');
 const buildSuggestedAnimeList = require('./routes/buildSuggestedAnimeList');
 const getSuggestedAnimes = require('./routes/getSuggestedAnimes');
-
+const deleteUserAnimeRow = require('./routes/deleteUserAnimeRow');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json())
@@ -21,6 +21,12 @@ app.use('/api/login', login);
 app.use('/api/getToken', getToken);
 app.use('/api/buildSuggestedAnimeList', buildSuggestedAnimeList);
 app.use('/api/getSuggestedAnimes', getSuggestedAnimes);
+app.use('/api/deleteUserAnimeRow', deleteUserAnimeRow);
+
+
+
+
+
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');

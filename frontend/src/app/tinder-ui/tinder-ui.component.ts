@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import {
   Component,
   Input,
@@ -32,7 +33,7 @@ export class TinderUIComponent implements AfterViewInit {
   heartVisibilityClassName = '';
   crossVisibilityClassName = '';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngAfterViewInit(): void {
     this.moveOutWidth = document.documentElement.clientWidth * 1.5;
@@ -153,14 +154,27 @@ export class TinderUIComponent implements AfterViewInit {
 
 
 
-  swipeLeft(card: Object) {
+  async swipeLeft(card: { id: number; img: string; title: string }) {
       //Swiped left logic here
-      console.log("user swiped left");
-      console.log(card)
+      //If the user swiped left, the right course of action would be to delete the user-anime pair from the database.
+
+      const token = localStorage.getItem('access_token');
+      const animeID = card.id;
+
+
+      this.http.post('http://localhost:3000/api/deleteUserAnimeRow', {MAL_ACCESS_TOKEN: token, animeID: animeID})
+      .subscribe({
+      next: () => {
+        console.log(`Deleted anime ${animeID} for this user.`);
+      },
+      error: err => {
+        console.error('Failed to delete:', err);
+      }
+    });
   }
 
 
-  swipeRight(card: Object) {
+  async swipeRight(card: { id: number; img: string; title: string }) {
       //Swiped right logic here
       console.log("user swiped right");
       console.log(card)
