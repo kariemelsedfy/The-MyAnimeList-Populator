@@ -56,18 +56,14 @@ export class TinderUIComponent implements AfterViewInit {
       cardEl.style.transform = `translate(${this.moveOutWidth}px, -100px) rotate(-30deg)`;
       this.toggleChoiceIndicator('', 'visible');
 
-      //Swiped right logic here
-      console.log("user swiped right");
-      console.log(card)
+      this.swipeRight(card)
 
     } else {
       cardEl.style.transform = `translate(-${this.moveOutWidth}px, -100px) rotate(30deg)`;
       this.toggleChoiceIndicator('visible', '');
 
-
-      //Swiped left logic here
-      console.log("user swiped left");
-      console.log(card)
+      this.swipeLeft(card)
+      
     }
 
     this.shiftRequired = true;
@@ -153,5 +149,20 @@ export class TinderUIComponent implements AfterViewInit {
       this.cards.shift();
       this.shiftRequired = false;
     }
+  }
+
+
+
+  swipeLeft(card: Object) {
+      //Swiped left logic here
+      console.log("user swiped left");
+      console.log(card)
+  }
+
+
+  swipeRight(card: Object) {
+      //Swiped right logic here
+      console.log("user swiped right");
+      console.log(card)
   }
 }

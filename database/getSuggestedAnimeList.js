@@ -8,7 +8,7 @@ async function getSuggestedAnimeList(userID) {
          WHERE ua.user_id = $1`,
         [userID]
     );
-    console.log(rows)
+    //console.log(rows)
     return rows;
 }
 

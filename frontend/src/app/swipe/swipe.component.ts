@@ -33,6 +33,7 @@ export class SwipeComponent {
         return {
           id: item.id,
           img: pic.large || pic.medium || '', // Fallback if large is missing
+          title: item.title
         };
       });
       console.log(this.cards);
