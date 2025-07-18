@@ -11,8 +11,10 @@ router.post('/', async (req, res) => {
     const token = req.body.MAL_ACCESS_TOKEN;
     userID = await getUserID(token);
     animeID = req.body.animeID;
-
     deleteRow(userID, animeID);
+
+    console.log(`deleted anime ${animeID}`);
+
 });
 
 

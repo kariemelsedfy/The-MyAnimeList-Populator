@@ -14,7 +14,12 @@ router.post('/', async (req, res) => {
         const userID = await getUserID(token);
 
         const suggestedAnimeList = await getSuggestedAnimeList(userID);
-        res.send(suggestedAnimeList.slice(0, 20));
+        
+        if (suggestedAnimeList.length >= 20) {
+            res.send(suggestedAnimeList.slice(0, 20));
+        } else {
+            res.send(suggestedAnimeList);
+        }
     } catch (err) {
         console.error('Error /api/getSuggestedAnimes:', err.response?.data || err.message);
         res.status(500).json({ error: 'Failed to fetch profile suggestions' });

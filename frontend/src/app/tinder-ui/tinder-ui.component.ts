@@ -8,7 +8,9 @@ import {
   ViewChildren,
   QueryList,
   ElementRef,
-  AfterViewInit
+  AfterViewInit,
+  Output,
+  EventEmitter
 } from '@angular/core';
 
 @Component({
@@ -24,6 +26,8 @@ export class TinderUIComponent implements AfterViewInit {
     img: string;
     title: string;
   }>;
+
+  @Output() reloadCards = new EventEmitter<void>();
 
   @ViewChildren('tinderCard') tinderCards!: QueryList<ElementRef>;
   tinderCardsArray!: ElementRef[];
@@ -170,6 +174,8 @@ export class TinderUIComponent implements AfterViewInit {
       this.http.post('http://localhost:3000/api/deleteUserAnimeRow', {MAL_ACCESS_TOKEN: token, animeID: animeID}).subscribe({
       next: () => {
         console.log(`Deleted anime ${animeID} for this user.`);
+        
+        this.reloadCards.emit();
       },
       error: err => {
         console.error('Failed to delete:', err);
@@ -187,6 +193,18 @@ export class TinderUIComponent implements AfterViewInit {
       this.http.post('http://localhost:3000/api/patchAnimeList', {MAL_ACCESS_TOKEN: token, animeID: animeID, score: score}).subscribe({
       next: () => {
         console.log(`Added ${card.title} to anime list with score ${score}.`);
+
+        //delete the anime from the database now that it's patched.
+        this.http.post('http://localhost:3000/api/deleteUserAnimeRow', {MAL_ACCESS_TOKEN: token, animeID: animeID}).subscribe({
+        next: () => {
+          this.reloadCards.emit();
+          console.log(`Deleted anime ${animeID} for this user.`);
+        },
+        error: err => {
+          console.error('Failed to delete:', err);
+        }
+      });
+
       },
       error: err => {
         console.error('Failed to delete:', err);
