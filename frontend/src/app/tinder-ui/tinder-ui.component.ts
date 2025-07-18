@@ -182,6 +182,18 @@ export class TinderUIComponent implements AfterViewInit {
       //Swiped right logic here
       //The correct logic would be to patch the user's anime list, and THEN, delete the anime-user pair from the database just like swipe left does.
       const score = await this.presentScorePrompt(card);
+      const token = localStorage.getItem('access_token');
+      const animeID = card.id;
+      this.http.post('http://localhost:3000/api/patchAnimeList', {MAL_ACCESS_TOKEN: token, animeID: animeID, score: score}).subscribe({
+      next: () => {
+        console.log(`Added ${card.title} to anime list with score ${score}.`);
+      },
+      error: err => {
+        console.error('Failed to delete:', err);
+      }
+    });
+      
+
   }
 
   private async presentScorePrompt(
