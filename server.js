@@ -7,6 +7,7 @@ const buildSuggestedAnimeList = require('./routes/buildSuggestedAnimeList');
 const getSuggestedAnimes = require('./routes/getSuggestedAnimes');
 const deleteUserAnimeRow = require('./routes/deleteUserAnimeRow');
 const patchAnimeList = require('./routes/patchAnimeList');
+const databaseContainsUser = require('./routes/databaseContainsUser');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json())
@@ -23,8 +24,8 @@ app.use('/api/getToken', getToken);
 app.use('/api/buildSuggestedAnimeList', buildSuggestedAnimeList);
 app.use('/api/getSuggestedAnimes', getSuggestedAnimes);
 app.use('/api/deleteUserAnimeRow', deleteUserAnimeRow);
-app.use('/api/patchAnimeList', patchAnimeList)
-
+app.use('/api/patchAnimeList', patchAnimeList);
+app.use('/api/databaseContainsUser', databaseContainsUser);
 
 
 
