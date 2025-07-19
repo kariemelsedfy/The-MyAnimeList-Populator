@@ -1,0 +1,75 @@
+/* home.component.css */
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4rem var(--spacing-lg) var(--spacing-lg);
+  min-height: 100vh;
+  /* Subtle radial highlight + gradient for depth */
+  background:
+    radial-gradient(circle at top center, rgba(64,101,186,0.1), transparent 70%),
+    linear-gradient(180deg, #e4ecff 0%, #ffffff 100%);
+  text-align: center;
+}
+
+.home-title {
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Container for the login button */
+/* Container for the login button */
+.login-container {
+  margin-top: 4rem; /* increased separation below title */
+  text-align: center;
+}
+
+/* MyAnimeList-style blue button (increased size) */
+.login-container a,
+.login-container button,
+.login-button,
+input.inputButton.btn-form-submit.btn-recaptcha-submit {
+  display: inline-block;
+  background-color: #4065ba;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  font-family: lucida grande, tahoma, verdana, arial, sans-serif;
+  font-size: var(--font-size-lg); /* 18px */
+  font-weight: 700;
+  min-width: 200px; /* wider */
+  padding: 14px 24px; /* more padding */
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 3px 8px rgba(64,101,186,0.3);
+}
+
+.login-container a:hover:not(:disabled),
+.login-container button:hover:not(:disabled),
+.login-button:hover:not(:disabled),
+input.inputButton.btn-form-submit.btn-recaptcha-submit:hover:not(:disabled) {
+  background-color: #315192;
+  box-shadow: 0 5px 14px rgba(63,83,139,0.3);
+}
+
+.login-container a:disabled,
+.login-container button:disabled,
+.login-button:disabled,
+input.inputButton.btn-form-submit.btn-recaptcha-submit:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Access token display */
+.token-container {
+  margin-top: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: #666;
+}

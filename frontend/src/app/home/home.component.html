@@ -1,10 +1,15 @@
-<div style="text-align:center; margin-top: 2rem;">
-  <a [href]="loginUrl">
-    <button [disabled]="!loginUrl">Login</button>
-  </a>
-</div>
+<!-- home.component.html -->
+<div class="home-container">
+  <h1 class="home-title">Never bothered to add the animes you have seen to your anime list, and now you can't keep track? theBetterAnimeList is going to help you fix that.</h1>
+  <h1 class="home-title">Login with your MyAnimeList account, and it will suggest you animes that you might have watched to add to your anime list directly on your personal MyAnimeList account.</h1>
 
+  <div class="login-container">
+    <a [href]="loginUrl">
+      <button class="inputButton btn-form-submit btn-recaptcha-submit" [disabled]="!loginUrl">Login with MyAnimeList</button>
+    </a>
+  </div>
 
-<div *ngIf="accessToken">
-  <p><strong>Access Token:</strong> {{ accessToken }}</p>
+  <div *ngIf="accessToken" class="token-container">
+    <p><strong>Access Token:</strong> {{ accessToken }}</p>
+  </div>
 </div>
