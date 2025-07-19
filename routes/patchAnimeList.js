@@ -24,8 +24,7 @@ router.post('/', async (req, res) => {
         }
       }
     );
-    console.log(response.data);
-    return response.data;
+    return res.status(200).json(response.data);
   } catch (err) {
     console.error('MAL update error:', err.response?.data || err.message);
     throw err;

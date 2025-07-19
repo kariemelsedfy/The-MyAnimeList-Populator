@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     deleteRow(userID, animeID);
 
     console.log(`deleted anime ${animeID}`);
-
+    return res.sendStatus(204);
 });
 
 

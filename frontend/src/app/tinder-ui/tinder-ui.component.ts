@@ -170,12 +170,10 @@ export class TinderUIComponent implements AfterViewInit {
       const token = localStorage.getItem('access_token');
       const animeID = card.id;
 
-
       this.http.post('http://localhost:3000/api/deleteUserAnimeRow', {MAL_ACCESS_TOKEN: token, animeID: animeID}).subscribe({
       next: () => {
         console.log(`Deleted anime ${animeID} for this user.`);
-        
-        this.reloadCards.emit();
+        this.reloadCards.emit()
       },
       error: err => {
         console.error('Failed to delete:', err);
@@ -197,19 +195,19 @@ export class TinderUIComponent implements AfterViewInit {
         //delete the anime from the database now that it's patched.
         this.http.post('http://localhost:3000/api/deleteUserAnimeRow', {MAL_ACCESS_TOKEN: token, animeID: animeID}).subscribe({
         next: () => {
-          this.reloadCards.emit();
           console.log(`Deleted anime ${animeID} for this user.`);
+          this.reloadCards.emit();
         },
         error: err => {
           console.error('Failed to delete:', err);
         }
       });
-
       },
       error: err => {
         console.error('Failed to delete:', err);
       }
     });
+
       
 
   }
