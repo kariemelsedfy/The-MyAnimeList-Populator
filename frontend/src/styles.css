@@ -1,0 +1,5 @@
+html, body, app-root, ion-app, ion-router-outlet {
+  height: 90%;
+  margin: 0;
+  padding: 0;
+}

@@ -1,33 +1,118 @@
 /* home.component.css */
+html, body, app-root, ion-app, ion-router-outlet {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 :host {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 4rem var(--spacing-lg) var(--spacing-lg);
+  /* Let content scroll if it exceeds viewport */
   min-height: 100vh;
-  /* Subtle radial highlight + gradient for depth */
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+
+  /* Full-cover background with soft darkening overlay for contrast */
   background:
-    radial-gradient(circle at top center, rgba(64,101,186,0.1), transparent 70%),
-    linear-gradient(180deg, #e4ecff 0%, #ffffff 100%);
-  text-align: center;
+    linear-gradient(rgba(5,15,40,0.55), rgba(5,15,40,0.65)),
+    url("../../assets/theBetterAnimeListBackground.png") center / cover no-repeat fixed;
+  /* For iOS performance; remove fixed there */
 }
 
+@supports (-webkit-touch-callout: none) {
+  :host {
+    background:
+      linear-gradient(rgba(5,15,40,0.55), rgba(5,15,40,0.65)),
+      url("../../assets/theBetterAnimeListBackground.png") center / cover no-repeat;
+  }
+}
+
+/* Optional subtle light accents */
+:host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 18%, rgba(255,255,255,0.20), transparent 60%),
+    radial-gradient(circle at 20% 78%, rgba(255,255,255,0.12), transparent 65%);
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+}
+
+:host, :host * {
+  /* Provide fallbacks for custom vars if not defined globally */
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --font-size-lg: 18px;
+  --font-size-sm: 0.85rem;
+  --color-primary: #ffffff;
+}
+
+/* Headings */
 .home-title {
-  font-size: 3rem;
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-xl);
+  margin: 0 0 clamp(1.4rem, 2.2vw, 2.2rem);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 600;
+  line-height: 1.25;
+  max-width: 70ch;
+  letter-spacing: .35px;
+
+  /* Responsive sizing: scales between mobile & desktop */
+  font-size: clamp(1.4rem, 0.9rem + 2.1vw, 2.7rem);
+
+  /* Gradient ink style */
+  background: linear-gradient(100deg,#ffffff 0%, #dbe9ff 45%, #b5d2ff 80%);
+  -webkit-background-clip: text;
+  color: transparent;
+
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.35));
+  opacity: 0;
+  transform: translateY(18px) scale(.985);
+  animation: titleEnter .85s cubic-bezier(.25,.9,.3,1.18) forwards;
 }
 
-/* Container for the login button */
-/* Container for the login button */
+.home-title + .home-title {
+  animation-delay: .18s;
+}
+
+/* Animation */
+@keyframes titleEnter {
+  0% { opacity:0; transform:translateY(20px) scale(.975); }
+  55% { opacity:1; transform:translateY(-3px) scale(1.005); }
+  100% { opacity:1; transform:translateY(0) scale(1); }
+}
+
+@media (max-width: 560px) {
+  .home-title {
+    line-height: 1.28;
+    letter-spacing: .25px;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .home-title {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  :host::before { animation: none; }
+}
+
+/* Login container spacing */
 .login-container {
-  margin-top: 4rem; /* increased separation below title */
+  margin-top: clamp(.5rem, 2.5vh, 2.2rem);
   text-align: center;
+  position: relative;
+  z-index: 1; /* sit above before pseudo-element */
 }
 
-/* MyAnimeList-style blue button (increased size) */
+/* Existing button styles (untouched except ensuring stacking) */
 .login-container a,
 .login-container button,
 .login-button,
@@ -39,14 +124,16 @@ input.inputButton.btn-form-submit.btn-recaptcha-submit {
   color: #fff;
   cursor: pointer;
   font-family: lucida grande, tahoma, verdana, arial, sans-serif;
-  font-size: var(--font-size-lg); /* 18px */
+  font-size: var(--font-size-lg);
   font-weight: 700;
-  min-width: 200px; /* wider */
-  padding: 14px 24px; /* more padding */
+  min-width: 200px;
+  padding: 14px 24px;
   text-align: center;
   text-decoration: none;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 3px 8px rgba(64,101,186,0.3);
+  transition: background-color 0.2s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 3px 8px rgba(64,101,186,0.3), 0 0 0 1px rgba(255,255,255,0.15) inset;
+  position: relative;
+  z-index: 1;
 }
 
 .login-container a:hover:not(:disabled),
@@ -54,7 +141,17 @@ input.inputButton.btn-form-submit.btn-recaptcha-submit {
 .login-button:hover:not(:disabled),
 input.inputButton.btn-form-submit.btn-recaptcha-submit:hover:not(:disabled) {
   background-color: #315192;
-  box-shadow: 0 5px 14px rgba(63,83,139,0.3);
+  box-shadow: 0 6px 16px -2px rgba(64,101,186,0.45), 0 0 0 1px rgba(255,255,255,0.18) inset;
+  transform: translateY(-2px);
+}
+
+.login-container a:active:not(:disabled),
+.login-container button:active:not(:disabled),
+.login-button:active:not(:disabled),
+input.inputButton.btn-form-submit.btn-recaptcha-submit:active:not(:disabled) {
+  transform: translateY(0);
+  filter: brightness(.94);
+  box-shadow: 0 3px 10px -1px rgba(31,49,89,.4), 0 0 0 1px rgba(255,255,255,0.15) inset;
 }
 
 .login-container a:disabled,
@@ -65,11 +162,14 @@ input.inputButton.btn-form-submit.btn-recaptcha-submit:disabled {
   color: #666;
   cursor: not-allowed;
   box-shadow: none;
+  transform: none;
 }
 
-/* Access token display */
+/* Token display */
 .token-container {
   margin-top: var(--spacing-lg);
   font-size: var(--font-size-sm);
-  color: #666;
+  color: #d0d7e3;
+  max-width: 60ch;
+  line-height: 1.4;
 }

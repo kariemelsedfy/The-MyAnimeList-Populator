@@ -9,11 +9,6 @@
 <ion-content>
 
   <tinder-ui [cards]="cards" (reloadCards)="reloadingTinderCards()"></tinder-ui>
+  <ion-button class="load-cards-btn" expand="full" (click)="loadTinderCards()" *ngIf="cards.length === 0">Load Anime Cards!</ion-button>
 
 </ion-content>
-
-<ion-footer *ngIf="cards.length === 0">
-  <ion-toolbar>
-    <ion-button class="load-cards-btn" expand="full" (click)="loadTinderCards()">Load Anime Cards!</ion-button>
-  </ion-toolbar>
-</ion-footer>
