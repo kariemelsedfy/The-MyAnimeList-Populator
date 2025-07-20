@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Tinder
+      theBetterAnimeList
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,8 +12,8 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="cards.length === 0">
   <ion-toolbar>
-    <ion-button expand="full" (click)="loadTinderCards()">Load Tinder Cards!</ion-button>
+    <ion-button expand="full" (click)="loadTinderCards()">Load Anime Cards!</ion-button>
   </ion-toolbar>
 </ion-footer>

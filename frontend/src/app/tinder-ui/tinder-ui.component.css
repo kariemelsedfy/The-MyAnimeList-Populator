@@ -1,12 +1,14 @@
 .tinder {
   width: 100%;
   height: 100%;
+  --card-border: 3px solid #1d4ed8;       /* visible colored outline */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   position: absolute;
   z-index: 100;
   transition: opacity 0.3s ease-in-out;
+  background: url('../../assets/theBetterAnimeListBackground.png');
 }
 
 .tinder--status {
@@ -50,22 +52,30 @@
   overflow: hidden; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background:url('../../assets/theBetterAnimeListBackground.png');
 }
 
-
+.tinder-card,
 .tinder--card {
-  display: inline-block;
-  width: 40%;
-  height: 70%;
-  background: #FFFFFF;
-  padding-bottom: 40px;
-  border-radius: 8px;
-  overflow: hidden;
   position: absolute;
-  will-change: transform;
-  transition: all 0.3s ease-in-out;
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
+  width: 25%;
+  max-width: 90%;
+  aspect-ratio: 2/3;
+  background-color: var(--color-surface);
+  /* simulate colored border with box-shadow to ensure visibility */
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.1),               /* original shadow */
+    0 0 0 2px var(--color-primary);           /* colored outline */
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  z-index: 2;
   cursor: grab;
 }
 .moving.tinder--card {
