@@ -25,7 +25,9 @@
             (transitionend)="handleShift()">
             
             <img #tinderCardImage [src]="card.img" (load)="tinderCardImage.style.opacity = '1'">
-
+            <div class="card-title glass" [class.is-front]="i === 0">
+            {{ card.title }}
+            </div>
             
         </div>
         <div class="tinder--buttons">
