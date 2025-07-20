@@ -1,0 +1,168 @@
+/* home.component.css */
+html, body, app-root, ion-app, ion-router-outlet {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Let content scroll if it exceeds viewport */
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+
+  /* Full-cover background with soft darkening overlay for contrast */
+  background:
+    linear-gradient(rgba(5,15,40,0.55), rgba(5,15,40,0.65)),
+    url("../../assets/theBetterAnimeListBackground.png") center / cover no-repeat fixed;
+  /* For iOS performance; remove fixed there */
+}
+
+@supports (-webkit-touch-callout: none) {
+  :host {
+    background:
+      linear-gradient(rgba(5,15,40,0.55), rgba(5,15,40,0.65)),
+      url("../../assets/theBetterAnimeListBackground.png") center / cover no-repeat;
+  }
+}
+
+/* Optional subtle light accents */
+:host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 18%, rgba(255,255,255,0.20), transparent 60%),
+    radial-gradient(circle at 20% 78%, rgba(255,255,255,0.12), transparent 65%);
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+}
+
+:host, :host * {
+  /* Provide fallbacks for custom vars if not defined globally */
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --font-size-lg: 18px;
+  --font-size-sm: 0.85rem;
+  --color-primary: #ffffff;
+}
+
+/* Headings */
+.end-page-title {
+  margin: 0 0 clamp(1.4rem, 2.2vw, 2.2rem);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 600;
+  line-height: 1.25;
+  max-width: 70ch;
+  letter-spacing: .35px;
+
+  /* Responsive sizing: scales between mobile & desktop */
+  font-size: clamp(1.4rem, 0.9rem + 2.1vw, 2.7rem);
+
+  /* Gradient ink style */
+  background: linear-gradient(100deg,#ffffff 0%, #dbe9ff 45%, #b5d2ff 80%);
+  -webkit-background-clip: text;
+  color: transparent;
+
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.35));
+  opacity: 0;
+  transform: translateY(18px) scale(.985);
+  animation: titleEnter .85s cubic-bezier(.25,.9,.3,1.18) forwards;
+}
+
+.end-page-title + .home-title {
+  animation-delay: .18s;
+}
+
+/* Animation */
+@keyframes titleEnter {
+  0% { opacity:0; transform:translateY(20px) scale(.975); }
+  55% { opacity:1; transform:translateY(-3px) scale(1.005); }
+  100% { opacity:1; transform:translateY(0) scale(1); }
+}
+
+@media (max-width: 560px) {
+  .home-title {
+    line-height: 1.28;
+    letter-spacing: .25px;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .home-title {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  :host::before { animation: none; }
+}
+
+/* Login container spacing */
+.redirect-container {
+  margin-top: clamp(.5rem, 2.5vh, 2.2rem);
+  text-align: center;
+  position: relative;
+  z-index: 1; /* sit above before pseudo-element */
+}
+
+/* Existing button styles (untouched except ensuring stacking) */
+.redirect-container a,
+.redirect-container button,
+.redirect-button,
+input.inputButton.btn-form-submit.btn-recaptcha-submit {
+    width: 25%;
+  display: inline-block;
+  background-color: #4065ba;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  font-family: lucida grande, tahoma, verdana, arial, sans-serif;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  min-width: 200px;
+  padding: 14px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 3px 8px rgba(64,101,186,0.3), 0 0 0 1px rgba(255,255,255,0.15) inset;
+  position: relative;
+  z-index: 1;
+}
+
+.redirect-container a:hover:not(:disabled),
+.redirect-container button:hover:not(:disabled),
+.redirect-button:hover:not(:disabled),
+input.inputButton.btn-form-submit.btn-recaptcha-submit:hover:not(:disabled) {
+  background-color: #315192;
+  box-shadow: 0 6px 16px -2px rgba(64,101,186,0.45), 0 0 0 1px rgba(255,255,255,0.18) inset;
+  transform: translateY(-2px);
+}
+
+.redirect-container a:active:not(:disabled),
+.redirect-container button:active:not(:disabled),
+.redirect-button:active:not(:disabled),
+input.inputButton.btn-form-submit.btn-recaptcha-submit:active:not(:disabled) {
+  transform: translateY(0);
+  filter: brightness(.94);
+  box-shadow: 0 3px 10px -1px rgba(31,49,89,.4), 0 0 0 1px rgba(255,255,255,0.15) inset;
+}
+
+.redirect-container a:disabled,
+.redirect-container button:disabled,
+.redirect-button:disabled,
+input.inputButton.btn-form-submit.btn-recaptcha-submit:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+

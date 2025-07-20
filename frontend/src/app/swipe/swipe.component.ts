@@ -4,7 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { TinderUIComponent } from '../tinder-ui/tinder-ui.component';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-swipe',
   templateUrl: './swipe.component.html',
@@ -14,7 +14,7 @@ import { TinderUIComponent } from '../tinder-ui/tinder-ui.component';
 export class SwipeComponent {
   cards: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   async loadTinderCards() {
     console.log("loading tinder cards");
@@ -38,7 +38,9 @@ export class SwipeComponent {
         };
       });
       console.log(this.cards);
-
+      if (this.cards.length == 0) {
+        this.router.navigate(["/end-page"])
+      }
     } catch (err) {
       console.error('Error fetching suggested animes:', err);
     }

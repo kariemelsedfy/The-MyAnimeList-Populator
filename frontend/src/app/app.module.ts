@@ -10,6 +10,9 @@ import { AnimeProfileComponent } from './anime-profile-form-component/anime-prof
 import { IonicModule } from '@ionic/angular';
 import { SwipeComponent } from './swipe/swipe.component';
 import { TinderUIComponent } from './tinder-ui/tinder-ui.component';
+import { EndPageComponent } from './end-page/end-page.component';
+
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -21,6 +24,7 @@ import { TinderUIComponent } from './tinder-ui/tinder-ui.component';
     AnimeProfileComponent, 
     SwipeComponent,
     TinderUIComponent,
+    EndPageComponent,
     IonicModule.forRoot()
   ],
   bootstrap: [AppComponent]
