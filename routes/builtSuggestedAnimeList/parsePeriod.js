@@ -18,9 +18,9 @@ function parsePeriod(period) {
         const now = new Date().getFullYear();
         return { fromYear: now - 5, toYear: now };
     }
-    // Fallback: 2000 to current year
+    // Fallback: 1990 to current year
     const now = new Date().getFullYear();
-    return { fromYear: 2000, toYear: now };
+    return { fromYear: 1990, toYear: now };
 }
 
 

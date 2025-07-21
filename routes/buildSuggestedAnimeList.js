@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
         const startPeriod = req.body.startPeriod;
         const { fromYear } = parsePeriod(startPeriod);
         const count = req.body.animeCount;
+        
 
         const token = req.body.MAL_ACCESS_TOKEN;
         const popularOverall = await getMostPopular(token, count * 3);
