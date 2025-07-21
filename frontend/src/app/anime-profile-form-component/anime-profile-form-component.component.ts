@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { NgIf, NgFor, JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-anime-profile',
   standalone: true,
@@ -23,12 +23,12 @@ export class AnimeProfileComponent {
     return this.animeForm.get('likedGenres') as FormArray<FormControl<boolean>>;
   }
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.animeForm = this.fb.group({
       startPeriod: [''],
       startAge: [''],
       stillWatching: [''],
-      animeCount: [''],
+      animeCount: [null as number | null],
       likedGenres: this.fb.array(this.genres.map(() => this.fb.control(false))),
       seriesLengthPreference: ['']
     });
@@ -54,10 +54,13 @@ export class AnimeProfileComponent {
 
     const formValue = { ...this.animeForm.value, likedGenres: selectedGenres, MAL_ACCESS_TOKEN: localStorage.getItem('access_token') };
 
+    console.log(this.animeForm.value.animeCount);
+    console.log(this.animeForm.value);
     this.http.post("http://localhost:3000/api/buildSuggestedAnimeList", formValue)
       .subscribe({
         next: (response) => {
           console.log('Form submitted!', response);
+          this.router.navigate(['/swipe']);
         },
         error: (err) => {
           console.error('Submission failed', err);

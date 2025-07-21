@@ -3,7 +3,7 @@ const getAuthHeaders = require('./getAuthHeaders')
 const axios = require('axios');
 
 //Get Most popular anime (overall ranking)
-async function getMostPopular(token, limit = 10) {
+async function getMostPopular(token, limit = 20) {
     const url = `${MAL_BASE_URL}/anime/ranking`;
     const response = await axios.get(url, {
         headers: getAuthHeaders(token),

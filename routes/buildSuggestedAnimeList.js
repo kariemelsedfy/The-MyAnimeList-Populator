@@ -15,9 +15,10 @@ router.post('/', async (req, res) => {
     try {
         const startPeriod = req.body.startPeriod;
         const { fromYear } = parsePeriod(startPeriod);
+        const count = req.body.animeCount;
 
         const token = req.body.MAL_ACCESS_TOKEN;
-        const popularOverall = await getMostPopular(token, 50);
+        const popularOverall = await getMostPopular(token, count * 3);
         const seasonalRange = await getSeasonalRange(token, fromYear);
 
         // Flatten all seasonal suggestions into one array
@@ -49,7 +50,7 @@ router.post('/', async (req, res) => {
             result.map(anime => addRow(userID, anime.id, anime.main_picture, anime.title))
         );  
 
-        res.json({ anime: result });
+        res.status(200).json({ anime: result });
     } catch (err) {
         console.error('Error /api/anime-profile:', err.response?.data || err.message);
         res.status(500).json({ error: 'Failed to fetch profile suggestions' });
