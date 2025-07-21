@@ -1,4 +1,11 @@
 <div class="p-4 max-w-xl mx-auto">
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="spinner"></div>
+    <p class="loading-text">
+      Please wait while we are calculating what animes you have most likely watched
+    </p>
+  </div>
+
   <h2 class="text-xl font-bold mb-4">Anime Watch History</h2>
   <form [formGroup]="animeForm" (ngSubmit)="onSubmit()" class="space-y-4">
 

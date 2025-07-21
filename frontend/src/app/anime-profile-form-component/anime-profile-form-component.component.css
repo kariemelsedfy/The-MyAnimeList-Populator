@@ -160,3 +160,41 @@ pre {
   button.next-btn,
   button[type="submit"] { width: 100%; }
 }
+
+/* semi‑opaque fullscreen overlay */
+.loading-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+/* larger, smoother spinner */
+.spinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid #e2e8f0;
+  border-top-color: #4f6ef7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* custom loading message */
+.loading-text {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #1e2a3b;
+  text-align: center;
+  max-width: 80%;
+}

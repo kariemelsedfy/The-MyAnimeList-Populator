@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './anime-profile-form-component.component.css'
 })
 export class AnimeProfileComponent {
+  loading = false;
   currentStep = 1;
   animeForm: FormGroup;
   submitted = false;
@@ -47,6 +48,7 @@ export class AnimeProfileComponent {
   }
   onSubmit() {
     this.submitted = true;
+    this.loading = true;
     // Convert likedGenres boolean array to genre names
     const selectedGenres = this.likedGenres.value
       .map((checked: boolean, i: number) => checked ? this.genres[i] : null)
