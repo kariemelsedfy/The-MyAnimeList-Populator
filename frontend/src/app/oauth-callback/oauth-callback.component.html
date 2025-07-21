@@ -1,0 +1,8 @@
+<div class="oauth-callback">
+  <!-- Spinner while waiting for token -->
+  <div *ngIf="!token" class="spinner"></div>
+  <h2  *ngIf="!token" class="message">Authenticating...</h2>
+
+  <!-- Optional success message, though you’ll navigate away almost immediately -->
+  <h2 *ngIf="token" class="message success">Success! Redirecting…</h2>
+</div>

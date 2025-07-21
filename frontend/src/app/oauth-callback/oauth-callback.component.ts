@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { NgIf, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-oauth-callback',
-  template: `
-    <div>OAuth code: {{ code }}</div>
-    <div>Access Token: {{ token?.access_token }} </div>
-  `
+  templateUrl: './oauth-callback.component.html', 
+  styleUrl: './oauth-callback.component.css',
+  imports: [NgIf, JsonPipe]
 })
 export class OauthCallbackComponent {
   code: string | null = null;

@@ -1,0 +1,162 @@
+/* anime-profile-form-component.component.css */
+
+/* --- Wizard Container --- */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: url("../../assets/theBetterAnimeListBackground.png");
+}
+
+/* Center the inner card */
+.p-4 {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08),
+              0 2px 6px rgba(0,0,0,0.04);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Step Visibility --- */
+.step {
+  display: none;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Only the active step shows */
+.step.active {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Heading --- */
+h2 {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e2a3b;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* --- Labels & Inputs --- */
+label.block {
+  font-weight: 500;
+  color: #34415e;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 90%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #dde3ed;
+  border-radius: 6px;
+  background: #fafbfc;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #4f6ef7;
+}
+
+/* --- Checkbox Group --- */
+.flex.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.flex.flex-wrap label {
+  background: #f0f3fa;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.flex.flex-wrap input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.flex.flex-wrap input[type="checkbox"]:checked + span {
+  font-weight: 600;
+}
+
+.flex.flex-wrap input[type="checkbox"]:checked + span,
+.flex.flex-wrap input[type="checkbox"]:checked + span::before {
+  color: #4f6ef7;
+}
+
+/* --- Buttons --- */
+button.next-btn,
+button[type="submit"] {
+  display: inline-block;
+  background: #4f6ef7;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  margin-top: 1.25rem;
+}
+
+button.next-btn:hover,
+button[type="submit"]:hover {
+  background: #3b5ed0;
+  transform: translateY(-2px);
+}
+
+button.next-btn:active,
+button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* If you’d like a “Previous” button, just add .prev-btn with similar styling */
+/* .prev-btn { background:#e2e8f0; color:#34415e; margin-right:1rem; } */
+
+/* --- Submitted JSON Display --- */
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e2a3b;
+  margin-bottom: 0.75rem;
+}
+
+pre {
+  background: #f4f6fa;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  color: #2d3a4d;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 400px) {
+  .p-4 { padding: 1.5rem; }
+  button.next-btn,
+  button[type="submit"] { width: 100%; }
+}

@@ -1,1 +1,88 @@
-<p>anime-profile-form-component works!</p>
+<div class="p-4 max-w-xl mx-auto">
+  <h2 class="text-xl font-bold mb-4">Anime Watch History</h2>
+  <form [formGroup]="animeForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+    <!-- Step 1 -->
+    <div class="step active" id="step1">
+      <label class="block font-semibold">When did you start watching anime?</label>
+      <input
+        type="number"
+        formControlName="startPeriod"
+        class="w-full p-2 border rounded"
+        placeholder="e.g., 2017, 2020..."
+      />
+      <button type="button" class="next-btn" (click)="goToStep(2)">Next</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step" id="step2">
+      <label class="block font-semibold">How old were you when you first watched anime?</label>
+      <input
+        type="number"
+        formControlName="startAge"
+        class="w-full p-2 border rounded"
+      />
+      <button type="button" class="next-btn" (click)="goToStep(3)">Next</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step" id="step3">
+      <label class="block font-semibold">Do you still watch anime regularly?</label>
+      <select
+        formControlName="stillWatching"
+        class="w-full p-2 border rounded"
+      >
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+        <option value="sometimes">Sometimes</option>
+      </select>
+      <button type="button" class="next-btn" (click)="goToStep(4)">Next</button>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step" id="step4">
+      <label class="block font-semibold">How many anime do you think you've watched?</label>
+      <select
+        formControlName="animeCount"
+        class="w-full p-2 border rounded"
+      >
+        <option value="<10">&lt;10</option>
+        <option value="10-30">10–30</option>
+        <option value="30-100">30–100</option>
+        <option value=">100">100+</option>
+      </select>
+      <button type="button" class="next-btn" (click)="goToStep(5)">Next</button>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="step" id="step5">
+      <label class="block font-semibold mb-2">What genres do you enjoy most?</label>
+      <div class="flex flex-wrap gap-2">
+        <label *ngFor="let genre of genres; let i = index" class="flex items-center space-x-2">
+          <input type="checkbox" [formControl]="likedGenres.controls[i]" />
+          <span>{{ genre }}</span>
+        </label>
+      </div>
+      <button type="button" class="next-btn" (click)="goToStep(6)">Next</button>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="step" id="step6">
+      <label class="block font-semibold">Do you like long-running series or short/seasonal anime?</label>
+      <select
+        formControlName="seriesLengthPreference"
+        class="w-full p-2 border rounded"
+      >
+        <option value="long">Long-running</option>
+        <option value="short">Short/Seasonal</option>
+        <option value="both">Both</option>
+      </select>
+      <button type="submit" class="next-btn">Submit</button>
+    </div>
+
+  </form>
+
+  <div *ngIf="submitted" class="mt-6">
+    <h3 class="text-lg font-bold mb-2">Form Submitted!</h3>
+  </div>
+</div>

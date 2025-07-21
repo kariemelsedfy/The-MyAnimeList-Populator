@@ -1,0 +1,42 @@
+/* Fill the viewport, center content */
+.oauth-callback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  /* Background gradient for visual interest */
+  background: url("../../assets/theBetterAnimeListBackground.png");
+  color: #fff;
+  text-align: center;
+}
+
+/* The spinning circle */
+.spinner {
+  width: 64px;
+  height: 64px;
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+/* Messages */
+.message {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.message.success {
+  color: #d1fae5; /* a light green to indicate success */
+}
+
+/* Spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
