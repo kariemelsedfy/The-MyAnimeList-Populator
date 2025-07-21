@@ -8,7 +8,7 @@ async function getSeasonal(token, year, season, top = 5) {
     const url = `${MAL_BASE_URL}/anime/season/${year}/${season}`;
     const response = await axios.get(url, {
         headers: getAuthHeaders(token),
-        params: { fields: 'id,title,main_picture' }
+        params: { fields: 'id,title,main_picture', sort: 'anime_num_list_users'}
     });
     return response.data.data.slice(0, top).map(item => ({
         id: item.node.id,
