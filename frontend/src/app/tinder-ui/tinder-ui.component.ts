@@ -186,6 +186,7 @@ export class TinderUIComponent implements AfterViewInit {
       //Swiped right logic here
       //The correct logic would be to patch the user's anime list, and THEN, delete the anime-user pair from the database just like swipe left does.
       const score = await this.presentScorePrompt(card);
+      
       const token = localStorage.getItem('access_token');
       const animeID = card.id;
       this.http.post('http://localhost:3000/api/patchAnimeList', {MAL_ACCESS_TOKEN: token, animeID: animeID, score: score}).subscribe({
@@ -212,33 +213,47 @@ export class TinderUIComponent implements AfterViewInit {
 
   }
 
-  private async presentScorePrompt(
+private presentScorePrompt(
   card: { id: number; img: string; title: string },
 ): Promise<number> {
-  const alert = await this.alertController.create({
-    header:  `Rate "${card.title}"`,
-    message: `You swiped right. What's the rating? (1-10)?`,
-    inputs: [{
-      name:        'score',
-      type:        'number',
-      placeholder: '1 to 10',
-      min:          1,
-      max:         10
-    }],
-    buttons: [
-      { text: 'Cancel', role: 'cancel' },
-      {
-        text: 'OK',
-        handler: () => {}
-      }
-    ]
-  });
+  return new Promise<number>(async resolve => {
+    let selected = 0;
 
-  await alert.present();
-  const { data } = await alert.onDidDismiss();
-  const raw = data.values?.score ?? '';
-  const num = parseInt(raw, 10);
-  return isNaN(num) ? 0 : num;
+    // build 1–10 radio inputs that only set `selected`
+    const inputs = Array.from({ length: 10 }, (_, i) => {
+      const val = i + 1;
+      return {
+        name:  'score',
+        type:  'radio' as const,
+        label: `${val}`,
+        value: val,
+        handler: () => {
+          selected = val;
+        }
+      };
+    });
+
+    const alert = await this.alertController.create({
+      header:  `Rate "${card.title}"`,
+      cssClass: 'score-alert',
+      inputs,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => resolve(0)      // user backed out
+        },
+        {
+          text: 'OK',
+          role: 'Ok',
+          handler: () => resolve(selected) // only now do we return
+        }
+      ]
+    });
+
+    await alert.present();
+  });
 }
+
 
 }
