@@ -11,11 +11,13 @@ import { NgIf, JsonPipe } from '@angular/common';
 })
 export class OauthCallbackComponent {
   code: string | null = null;
+  state: string | null = null;
   token: any = null;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {
     this.route.queryParamMap.subscribe(params => {
       this.code = params.get('code');
+      this.state = params.get('state');
     });
 
     if (this.code) {
@@ -25,7 +27,7 @@ export class OauthCallbackComponent {
 
   sendCode() {
     if (!this.code) return;
-    this.http.post('http://localhost:3000/api/getToken', { code: this.code })
+    this.http.post('http://localhost:3000/api/getToken', { code: this.code, state: this.state })
       .subscribe({
         next: (data) => { 
           this.token = data;

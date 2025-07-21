@@ -4,12 +4,15 @@
 const express = require('express');
 const router = express.Router();
 const getLoginURL = require('./login/getLoginURL')
+const PKCE = require('./login/getPKCEhelper');
+
+const { codeVerifier, codeChallenge } = PKCE.generatePkcePair();
 
 
-const loginURL = getLoginURL.loginURL
 
-router.get('/', (req, res) => {
-    res.send(loginURL)
+router.get('/', async (req, res) => {
+    const loginURL = await getLoginURL(codeVerifier, codeChallenge);
+    res.send(loginURL);
 });
 
 

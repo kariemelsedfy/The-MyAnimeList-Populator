@@ -4,17 +4,22 @@ const axios = require('axios');
 const router = express.Router();
 
 const getLoginURL = require('./login/getLoginURL');
-const codeVerifier = getLoginURL.codeVerifier;
-
+const getCodeVerifier = require('../database/getCodeVerifier');
 
 // Example: expects ?code=... in the query string
 router.post('/', async (req, res) => {
     const code = req.body.code;
+    const state = req.body.state;
     if (!code) {
         return res.status(400).json({ error: 'Missing code' });
     }
 
     try {
+        const codeVerifier = await getCodeVerifier(state);
+        if (!codeVerifier) {
+            return res.status(400).json({ error: 'Invalid state' });
+        }
+
         const params = new URLSearchParams();
         params.append('client_id', process.env.CLIENT_ID);
         params.append('client_secret', process.env.CLIENT_SECRET); 
