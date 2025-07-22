@@ -117,7 +117,7 @@ html, body, app-root, ion-app, ion-router-outlet {
 .redirect-container button,
 .redirect-button,
 input.inputButton.btn-form-submit.btn-recaptcha-submit {
-    width: 25%;
+    width: 3;
   display: inline-block;
   background-color: #4065ba;
   border: none;
@@ -165,4 +165,67 @@ input.inputButton.btn-form-submit.btn-recaptcha-submit:disabled {
   box-shadow: none;
   transform: none;
 }
+
+/* ===== END PAGE BLOCK ===== */
+.end-page-container {
+  max-width: min(760px, 92vw);
+  margin: clamp(3rem, 10vh, 8rem) auto 0;           /* pushes everything down nicely */
+  padding: clamp(1.8rem, 4vw, 3rem) clamp(1.6rem, 4vw, 2.6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  
+  /* glass card vibe */
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  background: rgba(15, 23, 42, 0.42);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 26px;
+  box-shadow: 0 22px 48px -18px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.08) inset;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp .7s cubic-bezier(.25,.9,.3,1.18) .1s both;
+}
+
+/* internal glow */
+.end-page-container::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 50% 50%, rgba(99,102,241,.28), transparent 60%);
+  filter: blur(42px);
+  animation: floatGlow 6s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+/* Titles already styled; just ensure fallback visibility */
+.end-page-title {
+  -webkit-text-fill-color: currentColor;
+}
+
+/* Button block: just move it lower */
+.redirect-container {
+  margin-top: clamp(2.2rem, 7vh, 4.5rem);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* optional: make link wrap behave better */
+.redirect-container a {
+  display: inline-block;
+}
+
+/* ---- Animations reused ---- */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(24px) scale(.97); }
+  to   { opacity:1; transform: translateY(0) scale(1); }
+}
+
+@keyframes floatGlow {
+  from { transform: translateY(-8%) scale(1); opacity: .9; }
+  to   { transform: translateY(6%) scale(1.08); opacity: 1; }
+}
+
 

@@ -7,6 +7,11 @@ ion-header, ion-toolbar {
   box-shadow: 0 2px 8px -2px rgba(0,0,0,.45);
 }
 
+ion-label {
+  color: #ffffff;
+  z-index: 1000;
+}
+
 ion-title {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: 600;
@@ -64,4 +69,85 @@ ion-button.load-cards-btn:focus-visible::part(native) {
 ion-button.load-cards-btn[disabled] {
   opacity: .55;
   pointer-events: none;
+}
+
+/* -------- Center Overlay -------- */
+.empty-center {
+  top: 35%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  pointer-events: none; /* let swipes go through if needed */
+  animation: fadeIn .6s ease-out forwards;
+}
+
+/* Glass card inside */
+.empty-center__inner {
+  pointer-events: auto; /* allow selection if you add buttons/links later */
+  max-width: min(560px, 92vw);
+  padding: clamp(1.4rem, 3vw, 2.4rem) clamp(1.6rem, 4vw, 2.8rem);
+
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  background: rgba(15, 23, 42, 0.42); /* slate-ish glass */
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 24px;
+
+  box-shadow:
+    0 22px 48px -18px rgba(0,0,0,.6),
+    0 0 0 1px rgba(255,255,255,.08) inset;
+  text-align: center;
+  color: #f5f7fa;
+
+  /* subtle glow behind */
+  position: relative;
+  overflow: hidden;
+}
+
+.empty-center__inner::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 50% 50%, rgba(99,102,241,.28), transparent 60%);
+  filter: blur(40px);
+  z-index: -1;
+  animation: floatGlow 6s ease-in-out infinite alternate;
+}
+
+.empty-center h1 {
+  margin: 0 0 .8rem;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4.2vw, 2.4rem);
+  line-height: 1.15;
+  background: linear-gradient(90deg,#ffffff,#b3cafb 55%,#7aa6ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.empty-center p {
+  margin: 0;
+  font-size: clamp(.95rem, 2.4vw, 1.1rem);
+  opacity: .92;
+  line-height: 1.45;
+}
+
+/* You already had this but keep it so the footer button pops above */
+.empty-center,
+ion-button.load-cards-btn {
+  position: relative;
+  z-index: 9999;
+}
+
+/* -------- Animations -------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes floatGlow {
+  from { transform: translateY(-8%) scale(1); opacity: .9; }
+  to   { transform: translateY(6%) scale(1.08); opacity: 1; }
 }

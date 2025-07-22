@@ -1,14 +1,23 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      theBetterAnimeList
+      The MyAnimeList Populator
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <tinder-ui [cards]="cards" (reloadCards)="reloadingTinderCards()"></tinder-ui>
-  <ion-button class="load-cards-btn" expand="full" (click)="loadTinderCards()" *ngIf="cards.length === 0">Load Anime Cards!</ion-button>
-
+   <div class="empty-center" *ngIf="cards.length === 0" slot="fixed">
+    <div class="empty-center__inner">
+      <h1>Ready to fill your list?</h1>
+      <p>Swipe through curated anime and build your MAL in seconds.</p>
+      <p>Your progress is saved. Come back at anytime!</p>
+    </div>
+  </div>
 </ion-content>
+
+
+  <ion-footer>  
+    <ion-button class="load-cards-btn" expand="full" (click)="loadTinderCards()" *ngIf="cards.length === 0">Load Anime Cards!</ion-button>
+</ion-footer>

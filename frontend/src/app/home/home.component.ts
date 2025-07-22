@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgIf } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, IonicModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
