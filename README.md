@@ -46,5 +46,5 @@ A web app that helps anime fans discover, curate, and rate their MyAnimeList col
 ### Clone the repo
 
 ```bash
-git clone https://github.com/your-username/theBetterAnimeList.git
+git clone https://github.com/kariemelsedfy/theBetterAnimeList.git
 cd theBetterAnimeList
